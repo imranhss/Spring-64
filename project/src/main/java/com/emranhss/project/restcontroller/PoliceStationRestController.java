@@ -39,5 +39,12 @@ public class PoliceStationRestController {
         policeStationService.deleteById(id);
     }
 
+    @PutMapping("{id}")
+    public void Update(@RequestBody PoliceStation ps) {
+
+        policeStationService.saveOrUpdate(ps);
+
+    }
+
 
 }
