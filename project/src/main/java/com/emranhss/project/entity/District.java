@@ -22,6 +22,9 @@ public class District {
     @JsonIgnore
     private List<PoliceStation> policeStations;
 
+    @ManyToOne
+    @JoinColumn(name = "division_id")
+    private Division division;
 
     public District() {
     }
@@ -58,5 +61,13 @@ public class District {
 
     public void setPoliceStations(List<PoliceStation> policeStations) {
         this.policeStations = policeStations;
+    }
+
+    public Division getDivision() {
+        return division;
+    }
+
+    public void setDivision(Division division) {
+        this.division = division;
     }
 }
