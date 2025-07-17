@@ -17,7 +17,6 @@ public class PoliceStation {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "district_id")
-    @JsonIgnore
     private District district;
 
     public PoliceStation() {
