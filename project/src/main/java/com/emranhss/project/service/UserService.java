@@ -3,10 +3,24 @@ package com.emranhss.project.service;
 import com.emranhss.project.repository.IUserRepo;
 import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
+<<<<<<< Updated upstream
 import org.springframework.stereotype.Service;
 import com.emranhss.project.entity.User;
 
 import java.util.List;
+=======
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import com.emranhss.project.entity.User;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.UUID;
+>>>>>>> Stashed changes
 
 @Service
 public class UserService {
@@ -17,7 +31,20 @@ public class UserService {
     @Autowired
     private EmailService emailService;
 
+<<<<<<< Updated upstream
     public void saveOrUpdate(User user) {
+=======
+    @Value("src/main/resources/static/images")
+    private String uploadDir;
+
+
+    public void saveOrUpdate(User user, MultipartFile imageFile) {
+        if(imageFile != null && !imageFile.isEmpty()){
+           String filename = saveImage(imageFile, user);
+            user.setPhoto(filename);
+        }
+
+>>>>>>> Stashed changes
         userRepo.save(user);
         sendActivationEmail(user);
     }
@@ -35,7 +62,10 @@ public class UserService {
     }
 
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
     private void sendActivationEmail(User user) {
         String subject = "Welcome to Our Service – Confirm Your Registration";
 
@@ -78,5 +108,33 @@ public class UserService {
     }
 
 
+<<<<<<< Updated upstream
+=======
+    public String saveImage(MultipartFile file, User user) {
+
+        Path uploadPath = Paths.get(uploadDir + "/users");
+        if (!Files.exists(uploadPath)) {
+            try {
+                Files.createDirectory(uploadPath);
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        String fileName = user.getName() + "_" + UUID.randomUUID().toString();
+
+
+        try {
+            Path filePath = uploadPath.resolve(fileName);
+            Files.copy(file.getInputStream(), filePath);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return fileName;
+
+    }
+
+>>>>>>> Stashed changes
 
 }
