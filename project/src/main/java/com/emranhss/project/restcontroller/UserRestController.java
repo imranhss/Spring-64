@@ -1,42 +1,20 @@
 package com.emranhss.project.restcontroller;
 
-import com.emranhss.project.service.UserService;
-import com.emranhss.project.entity.User;
-<<<<<<< Updated upstream
-=======
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
->>>>>>> Stashed changes
-import jakarta.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-<<<<<<< Updated upstream
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-@RestController
-@RequestMapping("/api/user/")
-=======
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/user/")
 @CrossOrigin("*")
->>>>>>> Stashed changes
+
 public class UserRestController {
 
     @Autowired
     private UserService userService;
 
-<<<<<<< Updated upstream
+
     @PostMapping
     public ResponseEntity<String> saveOrUpdate(@RequestBody User user) {
         try {
