@@ -1,8 +1,19 @@
 package com.emranhss.project.restcontroller;
 
 
+import com.emranhss.project.entity.User;
+import com.emranhss.project.service.UserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -15,24 +26,7 @@ public class UserRestController {
     private UserService userService;
 
 
-    @PostMapping
-    public ResponseEntity<String> saveOrUpdate(@RequestBody User user) {
-        try {
-            userService.saveOrUpdate(user);
-            return ResponseEntity.ok("Data Saved");
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
-=======
-//    @PostMapping
-//    public ResponseEntity<String> saveOrUpdate(@RequestBody User user) {
-//        try {
-//            userService.saveOrUpdate(user);
-//            return ResponseEntity.ok("Data Saved");
-//        } catch (EntityNotFoundException e) {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-//        }
-//    }
+
 
     @PostMapping
     public ResponseEntity<Map<String, String>> saveUser(
@@ -65,7 +59,7 @@ public class UserRestController {
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users=userService.findAll();
         return ResponseEntity.ok(users);
->>>>>>> Stashed changes
+
     }
 
 
