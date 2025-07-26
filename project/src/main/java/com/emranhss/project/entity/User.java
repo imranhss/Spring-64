@@ -17,7 +17,7 @@ public class User {
     private String password;
     private String photo;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(value = EnumType.STRING)
     private Role role;
 
     public User() {

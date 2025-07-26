@@ -26,27 +26,24 @@ public class UserRestController {
     private UserService userService;
 
 
-
-
     @PostMapping
     public ResponseEntity<Map<String, String>> saveUser(
             @RequestPart(value = "user") String userJson,
             @RequestParam(value = "photo") MultipartFile file
     ) throws JsonProcessingException {
-        ObjectMapper objectMapper=new ObjectMapper();
-        User user=objectMapper.readValue(userJson, User.class);
+        ObjectMapper objectMapper = new ObjectMapper();
+        User user = objectMapper.readValue(userJson, User.class);
 
-        try{
+        try {
             userService.saveOrUpdate(user, file);
-            Map<String, String> response=new HashMap<>();
+            Map<String, String> response = new HashMap<>();
             response.put("Message", "User Added Successfully ");
 
             return new ResponseEntity<>(response, HttpStatus.OK);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
 
-            Map<String, String> errorResponse=new HashMap<>();
-            errorResponse.put("Message", "User Add Faild "+e);
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("Message", "User Add Faild " + e);
             return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
@@ -54,15 +51,12 @@ public class UserRestController {
     }
 
 
-
     @GetMapping("")
     public ResponseEntity<List<User>> getAllUsers() {
-        List<User> users=userService.findAll();
+        List<User> users = userService.findAll();
         return ResponseEntity.ok(users);
 
     }
-
-
 
 
 }

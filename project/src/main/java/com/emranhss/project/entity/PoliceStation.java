@@ -13,6 +13,10 @@ public class PoliceStation {
     @Column(length = 50, nullable = false)
     private String name;
 
+    @ManyToOne
+    @JoinColumn(name = "district_id")
+    private District district;
+
     public PoliceStation() {
     }
 
@@ -32,5 +36,13 @@ public class PoliceStation {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public District getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(District district) {
+        this.district = district;
     }
 }

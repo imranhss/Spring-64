@@ -1,5 +1,6 @@
 package com.emranhss.project.service;
 
+import com.emranhss.project.entity.Role;
 import com.emranhss.project.repository.IUserRepo;
 import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class UserService {
             user.setPhoto(filename);
         }
 
-
+        user.setRole(Role.JOBSEEKER);
         userRepo.save(user);
         sendActivationEmail(user);
     }
