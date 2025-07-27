@@ -1,0 +1,10 @@
+
+<div *ngFor="let u of users">
+    <p>Name: {{u.name}}</p>
+    <p>Email: {{u.email}}</p>
+    <p>Phone: {{u.phone}}</p>
+    <p><img [src]="'http://localhost:8085/images/users/'+u.photo" height="100" width="100"></p>
+
+
+
+</div>

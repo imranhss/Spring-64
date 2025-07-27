@@ -1,0 +1,42 @@
+<div class="container my-3">
+    <div class="bg-success text-center">
+        <h1 class="jumborton">Add Student</h1>
+    </div>
+    <!--    start form-->
+    <form [formGroup]="stuForm"  >
+        <div class="row">
+            <div class="col-md-6">
+                <label for="exampleInputEmail1" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" formControlName="name" placeholder="Full Name">
+            </div>
+
+            <div class="col-md-6">
+                <label for="exampleInputEmail1" class="form-label">Email</label>
+                <input type="text" class="form-control" id="email" formControlName="email" placeholder="example@gmail.com">
+            </div>        
+        </div>
+        
+
+        <div class="row">
+            <div class="col-md-6">
+                <label for="exampleInputEmail1" class="form-label">Fee</label>
+                <input type="text" class="form-control" id="contactNo" formControlName="age" placeholder="Full Name">
+            </div>
+
+        </div>
+
+        <div class="row mt-3 text-center">
+            <div class="col-md-6">
+                <button type="submit" class="btn btn-success text-center"  (click)="onSubmit()">Save</button>
+
+            </div>
+
+            <div class="col-md-6">
+                <button type="reset" class="btn btn-danger text-center" >Reset</button>
+
+            </div>
+        </div>
+    </form>
+
+    <!--end form    -->
+</div>
