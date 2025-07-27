@@ -2,8 +2,8 @@ package com.emranhss.project.entity;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
-import java.util.List;
+import java.sql.Date;
+
 
 @Entity
 public class JobSeeker {
@@ -17,7 +17,7 @@ public class JobSeeker {
     private String phone;
     private String gender;
     private String address;
-    private LocalDate dateOfBirth;
+    private Date dateOfBirth;
     private String photo;
 
     @OneToOne
@@ -25,6 +25,21 @@ public class JobSeeker {
     private User user;
 
 
+    public JobSeeker() {
+
+    }
+
+    public JobSeeker(Long id, String name, String email, String phone, String gender, String address, Date dateOfBirth, String photo, User user) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.gender = gender;
+        this.address = address;
+        this.dateOfBirth = dateOfBirth;
+        this.photo = photo;
+        this.user = user;
+    }
 
     public Long getId() {
         return id;
@@ -74,11 +89,11 @@ public class JobSeeker {
         this.address = address;
     }
 
-    public LocalDate getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -90,5 +105,12 @@ public class JobSeeker {
         this.photo = photo;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
 }

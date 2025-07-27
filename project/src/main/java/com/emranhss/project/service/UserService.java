@@ -1,5 +1,6 @@
 package com.emranhss.project.service;
 
+import com.emranhss.project.entity.JobSeeker;
 import com.emranhss.project.entity.Role;
 import com.emranhss.project.repository.IUserRepo;
 import jakarta.mail.MessagingException;
@@ -13,7 +14,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
 import java.util.UUID;
 
 
@@ -26,7 +26,8 @@ public class UserService {
     @Autowired
     private EmailService emailService;
 
-
+    @Autowired
+    private JobSeekerService jobSeekerService;
 
 
     @Value("src/main/resources/static/images")
@@ -34,12 +35,12 @@ public class UserService {
 
 
     public void saveOrUpdate(User user, MultipartFile imageFile) {
-        if(imageFile != null && !imageFile.isEmpty()){
-           String filename = saveImage(imageFile, user);
+        if (imageFile != null && !imageFile.isEmpty()) {
+            String filename = saveImage(imageFile, user);
             user.setPhoto(filename);
         }
 
-        user.setRole(Role.JOBSEEKER);
+        user.setRole(Role.ADMIN);
         userRepo.save(user);
         sendActivationEmail(user);
     }
@@ -55,8 +56,6 @@ public class UserService {
     public void delete(User user) {
         userRepo.delete(user);
     }
-
-
 
 
     private void sendActivationEmail(User user) {
@@ -101,7 +100,7 @@ public class UserService {
     }
 
 
-
+    // for User folder
     public String saveImage(MultipartFile file, User user) {
 
         Path uploadPath = Paths.get(uploadDir + "/users");
@@ -125,6 +124,54 @@ public class UserService {
         }
         return fileName;
 
+    }
+
+    // for User folder
+    public String saveImageForJobSeeker(MultipartFile file, JobSeeker jobSeeker) {
+
+        Path uploadPath = Paths.get(uploadDir + "/jobSeeker");
+        if (!Files.exists(uploadPath)) {
+            try {
+                Files.createDirectory(uploadPath);
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        String jobSeekerName = jobSeeker.getName() ;
+        String fileName = jobSeekerName.trim().replaceAll("\\s+", "_") ;
+
+        String savedFileName = fileName+ "_" + UUID.randomUUID().toString();
+
+        try {
+            Path filePath = uploadPath.resolve(savedFileName);
+            Files.copy(file.getInputStream(), filePath);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return savedFileName;
+
+    }
+
+
+    public void registerJobSeeker(User user, MultipartFile imageFile, JobSeeker jobSeekerData) {
+        if (imageFile != null && !imageFile.isEmpty()) {
+            String filename = saveImage(imageFile, user);
+            String jobSeekerPhoto = saveImageForJobSeeker(imageFile, jobSeekerData);
+            jobSeekerData.setPhoto(jobSeekerPhoto);
+            user.setPhoto(filename);
+        }
+
+        user.setRole(Role.JOBSEEKER);
+        User savedUser = userRepo.save(user); // Save User first
+
+        // Set user to jobSeeker and save it
+        jobSeekerData.setUser(savedUser);
+
+        jobSeekerService.save(jobSeekerData);
+
+        sendActivationEmail(savedUser);
     }
 
 
