@@ -1,6 +1,7 @@
 package com.emranhss.project.restcontroller;
 
 
+import com.emranhss.project.dto.AuthenticationResponse;
 import com.emranhss.project.entity.User;
 import com.emranhss.project.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -19,7 +20,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/user/")
 @CrossOrigin("*")
-
 public class UserRestController {
 
     @Autowired
@@ -56,6 +56,21 @@ public class UserRestController {
         List<User> users = userService.findAll();
         return ResponseEntity.ok(users);
 
+    }
+
+
+    @PostMapping("/login")
+    public ResponseEntity<AuthenticationResponse>  login(@RequestBody User request){
+        return ResponseEntity.ok(userService.authencate(request));
+
+    }
+
+
+    @GetMapping("/active/{id}")
+    public ResponseEntity<String> activeUser(@PathVariable("id") int id){
+
+        String response= userService.activeUser(id);
+        return  ResponseEntity.ok(response);
     }
 
 
