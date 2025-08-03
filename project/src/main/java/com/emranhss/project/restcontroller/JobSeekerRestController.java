@@ -2,6 +2,7 @@ package com.emranhss.project.restcontroller;
 
 import com.emranhss.project.entity.JobSeeker;
 import com.emranhss.project.entity.User;
+import com.emranhss.project.service.JobSeekerService;
 import com.emranhss.project.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -20,6 +22,9 @@ public class JobSeekerRestController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private JobSeekerService jobSeekerService;
 
     @PostMapping("")
     public ResponseEntity<Map<String, String>> registerJobSeeker(
@@ -46,6 +51,16 @@ public class JobSeekerRestController {
 
 
     }
+
+
+    @GetMapping("all")
+    public ResponseEntity<List<JobSeeker>> getAllUsers() {
+        List<JobSeeker> jobSeekerList = jobSeekerService.getAll();
+        return ResponseEntity.ok(jobSeekerList);
+
+    }
+
+
 
 
 }

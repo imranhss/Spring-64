@@ -11,7 +11,10 @@ import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,6 +23,7 @@ import org.springframework.stereotype.Service;
 import com.emranhss.project.entity.User;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -68,10 +72,13 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepo.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found"));
+
+        List<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority(user.getRole().name()));
+
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(),
                 user.getPassword(),
-                new ArrayList<>()
+                authorities
         );
     }
 
@@ -213,6 +220,7 @@ public class UserService implements UserDetailsService {
         // Encode password before saving User
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(Role.JOBSEEKER);
+        user.setActive(false);
 
         // Save User FIRST and get persisted instance
         User savedUser = userRepo.save(user);
@@ -268,6 +276,10 @@ public class UserService implements UserDetailsService {
         );
 
         User user=userRepo.findByEmail(request.getEmail()).orElseThrow();
+
+        if (!user.isActive()) {
+            throw new RuntimeException("Account is not activated. Please check your email for activation link.");
+        }
 
         // Generate Token for Current User
         String jwt=jwtService.generateToken(user);

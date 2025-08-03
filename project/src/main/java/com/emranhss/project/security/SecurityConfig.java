@@ -40,7 +40,10 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(req ->
-                        req.requestMatchers("/api/user/**", "/images/**", "/api/jobseeker/","/api/user/active/**", "/api/user/login").permitAll()
+                        req.requestMatchers("/api/user/", "/images/**", "/api/jobseeker/**","/api/user/active/**", "/api/user/login")
+                                .permitAll()
+                                .requestMatchers("/api/user/all")
+                                .hasAuthority("JOBSEEKER")
                                 .anyRequest().authenticated()
                 )
                 .userDetailsService(userService)

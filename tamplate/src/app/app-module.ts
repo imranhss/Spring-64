@@ -12,6 +12,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { AlluserComponent } from './user/alluser.component/alluser.component';
 import { AddjobseekerComponent } from './jobseekr/addjobseeker.component/addjobseeker.component';
+import { LoginComponent } from './auth/login.component/login.component';
+import { JobseekerProfileComponent } from './jobseeker/jobseeker-profile.component/jobseeker-profile.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { AddjobseekerComponent } from './jobseekr/addjobseeker.component/addjobs
     Dashboard,
     Addstudent,
     AlluserComponent,
-    AddjobseekerComponent
+    AddjobseekerComponent,
+    LoginComponent,
+    JobseekerProfileComponent
   ],
   imports: [
     BrowserModule,
