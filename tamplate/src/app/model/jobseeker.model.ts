@@ -1,7 +1,5 @@
 
 export interface JobSeeker{
-
-
        id: number;
        name: string;
        email: string;

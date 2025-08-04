@@ -40,6 +40,7 @@ public class User implements UserDetails {
     }
 
 
+
     public User(int id, String name, String email, String phone, String password, String photo, Role role) {
         this.id = id;
         this.name = name;

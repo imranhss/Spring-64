@@ -1,5 +1,6 @@
 package com.emranhss.project.jwt;
 
+import com.emranhss.project.entity.Token;
 import com.emranhss.project.entity.User;
 import com.emranhss.project.repository.ITokenRepository;
 import io.jsonwebtoken.Claims;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
+import java.util.Optional;
 import java.util.function.Function;
 
 @Service
@@ -37,7 +39,7 @@ public class JwtService {
 
     private SecretKey getSigningKey() {
 
-        byte[] keyBytes = Decoders.BASE64URL.decode(SECURITY_KEY);
+        byte[] keyBytes = Decoders.BASE64.decode(SECURITY_KEY);
         return Keys.hmacShaKeyFor(keyBytes);
 
     }
@@ -85,14 +87,10 @@ public class JwtService {
     public boolean isValid(String token, UserDetails user) {
 
         String userName = extractUserName(token);
+        boolean expired = isTokenExpired(token);
 
-        boolean validToken = tokenRepository
-                .findByToken(token)
-                .map(t -> !t.isLogout())
-                .orElse(false);
-
-        return (userName.equals(user.getUsername()) && !isTokenExpired(token) && validToken);
-
+        System.out.println("Bypassing DB check. Token expired? " + expired);
+        return (userName.equals(user.getUsername()) && !expired);
     }
 
 

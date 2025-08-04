@@ -9,11 +9,12 @@ import { Footer } from './layout/footer/footer';
 import { Dashboard } from './dashboard/dashboard/dashboard';
 import { Addstudent } from './student/addstudent/addstudent';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withFetch } from '@angular/common/http';
 import { AlluserComponent } from './user/alluser.component/alluser.component';
 import { AddjobseekerComponent } from './jobseekr/addjobseeker.component/addjobseeker.component';
 import { LoginComponent } from './auth/login.component/login.component';
 import { JobseekerProfileComponent } from './jobseeker/jobseeker-profile.component/jobseeker-profile.component';
+import { AuthInterceptor } from './service/authInterceptor';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { JobseekerProfileComponent } from './jobseeker/jobseeker-profile.compone
     provideHttpClient(
       withFetch()
     ),
+     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [App]
 })

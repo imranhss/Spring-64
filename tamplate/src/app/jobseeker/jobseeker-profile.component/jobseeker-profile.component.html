@@ -1,1 +1,19 @@
-<p>jobseeker-profile.component works!</p>
+<div *ngIf="jobSeeker" class="container py-5">
+  <div class="card p-4">
+    <div class="row align-items-center">
+      <div class="col-md-3 text-center">
+        <img [src]="'http://localhost:8085/images/jobSeeker/'+jobSeeker.photo" alt="Profile Image" class="profile-img mb-3">
+        <h4 class="mb-0">{{ jobSeeker.name }}</h4>
+        <p class="text-muted">{{ jobSeeker.gender }}</p>
+      </div>
+      <div class="col-md-9">
+        <div class="row mb-2">
+          <div class="col-md-6"><strong>Email:</strong> {{ jobSeeker.email }}</div>
+          <div class="col-md-6"><strong>Phone:</strong> {{ jobSeeker.phone }}</div>
+          <div class="col-md-6"><strong>Address:</strong> {{ jobSeeker.address }}</div>
+          <div class="col-md-6"><strong>Date of Birth:</strong> </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

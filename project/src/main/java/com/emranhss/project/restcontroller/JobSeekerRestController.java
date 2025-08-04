@@ -2,6 +2,9 @@ package com.emranhss.project.restcontroller;
 
 import com.emranhss.project.entity.JobSeeker;
 import com.emranhss.project.entity.User;
+import com.emranhss.project.repository.IUserRepo;
+import com.emranhss.project.repository.JobSeekerRepository;
+import com.emranhss.project.service.AuthService;
 import com.emranhss.project.service.JobSeekerService;
 import com.emranhss.project.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -9,19 +12,28 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/jobseeker/")
 public class JobSeekerRestController {
 
     @Autowired
-    private UserService userService;
+    private AuthService userService;
+
+    @Autowired
+    private JobSeekerRepository jobSeekerRepository;
+
+    @Autowired
+    private IUserRepo userRepo;
 
     @Autowired
     private JobSeekerService jobSeekerService;
@@ -57,6 +69,33 @@ public class JobSeekerRestController {
     public ResponseEntity<List<JobSeeker>> getAllUsers() {
         List<JobSeeker> jobSeekerList = jobSeekerService.getAll();
         return ResponseEntity.ok(jobSeekerList);
+
+    }
+
+//    @GetMapping("/profile")
+//    public ResponseEntity<?> getMyProfile() {
+//        // 1. Get current logged-in user email
+//        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+//
+//        // 2. Get User from DB
+//        User user = userRepo.findByEmail(email)
+//                .orElseThrow(() -> new RuntimeException("User Not Found"));
+//
+//        // 3. Get JobSeeker by User ID (assuming relation exists)
+//        JobSeeker jobSeeker = jobSeekerRepository.findByUserId(user.getId())
+//                .orElseThrow(() -> new RuntimeException("JobSeeker Profile Not Found"));
+//
+//        return ResponseEntity.ok(jobSeeker);
+//    }
+
+    @GetMapping("/profile")
+    public ResponseEntity<?> getProfile(Authentication authentication) {
+        System.out.println("Authenticated User: " + authentication.getName());
+        System.out.println("Authorities: " + authentication.getAuthorities());
+        String email = authentication.getName();
+        Optional<User> user =userRepo.findByEmail(email);
+        JobSeeker jobSeeker = jobSeekerService.getProfileByUserId(user.get().getId());
+        return ResponseEntity.ok(jobSeeker);
 
     }
 
