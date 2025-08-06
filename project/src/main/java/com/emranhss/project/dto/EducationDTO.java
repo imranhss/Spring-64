@@ -1,25 +1,25 @@
-package com.emranhss.project.entity;
+package com.emranhss.project.dto;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.*;
+import com.emranhss.project.entity.Education;
 
-@Entity
-public class Education {
+public class EducationDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String level;
     private String institute;
     private String board;
     private String result;
     private String year;
 
-    @ManyToOne
-    @JoinColumn(name = "job_seeker_id")
-    @JsonBackReference
-    private JobSeeker jobSeeker;
+    // Constructor
+    public EducationDTO(Education education) {
+        this.id = education.getId();
+        this.level = education.getLevel();
+        this.institute = education.getInstitute();
+        this.board = education.getBoard();
+        this.result = education.getResult();
+        this.year = education.getYear();
+    }
 
     public Long getId() {
         return id;
@@ -67,13 +67,5 @@ public class Education {
 
     public void setYear(String year) {
         this.year = year;
-    }
-
-    public JobSeeker getJobSeeker() {
-        return jobSeeker;
-    }
-
-    public void setJobSeeker(JobSeeker jobSeeker) {
-        this.jobSeeker = jobSeeker;
     }
 }

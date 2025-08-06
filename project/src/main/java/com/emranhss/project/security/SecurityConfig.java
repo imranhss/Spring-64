@@ -41,7 +41,7 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(req -> req
                         .requestMatchers("/api/user/login","/auth/login", "/api/jobseeker/","/images/**", "/api/user/active/**").permitAll()
-                        .requestMatchers("/api/user/all", "/api/jobseeker/profile").hasRole("JOBSEEKER")
+                        .requestMatchers("/api/user/all", "/api/jobseeker/profile", "/api/education/all").hasRole("JOBSEEKER")
                         .anyRequest().authenticated()
                 )
                 .userDetailsService(userService)

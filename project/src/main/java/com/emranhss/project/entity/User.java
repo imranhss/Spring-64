@@ -1,5 +1,6 @@
 package com.emranhss.project.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -28,6 +29,8 @@ public class User implements UserDetails {
 
     @OneToMany
     private List<Token> tokens;
+
+    
 
     // for user details +++++++++++++++++++++++++++++++++++++++++
 
