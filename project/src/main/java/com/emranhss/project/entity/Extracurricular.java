@@ -55,4 +55,5 @@ public class Extracurricular {
     public void setJobSeeker(JobSeeker jobSeeker) {
         this.jobSeeker = jobSeeker;
     }
+
 }

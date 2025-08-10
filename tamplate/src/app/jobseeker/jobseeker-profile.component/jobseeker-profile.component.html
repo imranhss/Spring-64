@@ -31,6 +31,26 @@
     <button type="button" class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#extracurricularModal">
       Add Extracurricular
     </button>
+    <button type="button" class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#skillModal">
+      Add Skill
+    </button>
+    <button type="button" class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#trainingModal">
+      Add Training
+    </button>
+    <button type="button" class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#referenceModal">
+      Add Reference
+    </button>
+
+    <button class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#languageModal">
+      Add Language
+    </button>
+
+    <button class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#hobbyModal">
+      Add Hobby
+    </button>
+
+
+
 
 
   </div>
@@ -154,6 +174,166 @@
 </div>
 
 
+<!-- Add Skill Modal -->
+<div class="modal fade" id="skillModal" tabindex="-1" aria-labelledby="skillModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="skillModalLabel">Add New Skill</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="addSkill()">
+          <div class="mb-3">
+            <label for="skillName" class="form-label">Skill Name</label>
+            <input type="text" id="skillName" [(ngModel)]="newSkill.name" name="name" class="form-control" required />
+          </div>
+          <div class="mb-3">
+            <label for="skillLevel" class="form-label">Level</label>
+            <select id="skillLevel" [(ngModel)]="newSkill.level" name="level" class="form-select" required>
+              <option value="" disabled selected>Select level</option>
+              <option>Beginner</option>
+              <option>Intermediate</option>
+              <option>Expert</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Save Skill</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Add Training Modal -->
+<div class="modal fade" id="trainingModal" tabindex="-1" aria-labelledby="trainingModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="trainingModalLabel">Add New Training</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="addTraining()">
+          <div class="mb-3">
+            <label for="trainingTitle" class="form-label">Title</label>
+            <input type="text" id="trainingTitle" [(ngModel)]="newTraining.title" name="title" class="form-control"
+              required />
+          </div>
+          <div class="mb-3">
+            <label for="trainingInstitute" class="form-label">Institute</label>
+            <input type="text" id="trainingInstitute" [(ngModel)]="newTraining.institute" name="institute"
+              class="form-control" required />
+          </div>
+          <div class="mb-3">
+            <label for="trainingDuration" class="form-label">Duration</label>
+            <input type="text" id="trainingDuration" [(ngModel)]="newTraining.duration" name="duration"
+              class="form-control" required />
+          </div>
+          <div class="mb-3">
+            <label for="trainingDescription" class="form-label">Description</label>
+            <textarea id="trainingDescription" [(ngModel)]="newTraining.description" name="description"
+              class="form-control"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Save Training</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Reference Modal -->
+<div class="modal fade" id="referenceModal" tabindex="-1" aria-labelledby="referenceModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="referenceModalLabel">Add New Reference</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="addReference()">
+          <div class="mb-3">
+            <label for="referenceName" class="form-label">Name</label>
+            <input type="text" id="referenceName" [(ngModel)]="newReference.name" name="name" class="form-control"
+              required />
+          </div>
+          <div class="mb-3">
+            <label for="referenceContact" class="form-label">Contact</label>
+            <input type="text" id="referenceContact" [(ngModel)]="newReference.contact" name="contact"
+              class="form-control" required />
+          </div>
+          <div class="mb-3">
+            <label for="referenceRelation" class="form-label">Relation</label>
+            <input type="text" id="referenceRelation" [(ngModel)]="newReference.relation" name="relation"
+              class="form-control" required />
+          </div>
+          <button type="submit" class="btn btn-primary">Save Reference</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Add Language Modal -->
+<div class="modal fade" id="languageModal" tabindex="-1" aria-labelledby="languageModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="languageModalLabel">Add New Language</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="addLanguage()">
+          <div class="mb-3">
+            <label for="languageName" class="form-label">Language Name</label>
+            <input type="text" id="languageName" [(ngModel)]="newLanguage.name" name="name" class="form-control"
+              required />
+          </div>
+          <div class="mb-3">
+            <label for="languageProficiency" class="form-label">Proficiency</label>
+            <select id="languageProficiency" [(ngModel)]="newLanguage.proficiency" name="proficiency"
+              class="form-select" required>
+              <option value="" disabled selected>Select proficiency</option>
+              <option>Basic</option>
+              <option>Fluent</option>
+              <option>Native</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Save Language</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Hobby Modal -->
+<div class="modal fade" id="hobbyModal" tabindex="-1" aria-labelledby="hobbyModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="hobbyModalLabel">Add New Hobby</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="addHobby()">
+          <div class="mb-3">
+            <label for="hobbyName" class="form-label">Hobby Name</label>
+            <input type="text" id="hobbyName" [(ngModel)]="newHobby.name" name="name" class="form-control" required />
+          </div>
+          <button type="submit" class="btn btn-primary">Save Hobby</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
 
 <!-- Accordion -->
 <div class="accordion" id="accordionExample">
@@ -243,17 +423,132 @@
     <h2 class="accordion-header" id="headingThree">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour"
         aria-expanded="false" aria-controls="collapseFour">
-        Accordion Item #3
+        Skill
       </button>
     </h2>
     <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingThree"
       data-bs-parent="#accordionExample">
       <div class="accordion-body">
-        <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin
-        adds the appropriate classes that we use to style each element. These classes control the overall appearance, as
-        well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our
-        default variables. It's also worth noting that just about any HTML can go within the
-        <code>.accordion-body</code>, though the transition does limit overflow.
+        <div *ngIf="skills.length > 0" class="card p-4 mt-4">
+          <h5>Skills</h5>
+          <div *ngFor="let skill of skills" class="border-bottom py-2">
+            <div><strong>Name:</strong> {{ skill.name }}</div>
+            <div><strong>Level:</strong> {{ skill.level }}</div>
+            <button class="btn btn-sm btn-danger" (click)="deleteSkill(skill.id)">Delete</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingThree">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive"
+        aria-expanded="false" aria-controls="collapseFour">
+        Trining
+      </button>
+    </h2>
+    <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingThree"
+      data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div *ngIf="skills.length > 0" class="card p-4 mt-4">
+          <h5>Training</h5>
+          <ul class="list-group">
+            <li *ngFor="let training of trainings"
+              class="list-group-item d-flex justify-content-between align-items-start">
+              <div class="ms-2 me-auto">
+                <div class="fw-bold">{{ training.title }}</div>
+                <small class="text-muted">{{ training.institute }}</small>
+                <p class="mb-0 mt-1">
+                  <strong>Duration:</strong> {{ training.duration }}<br />
+                  {{ training.description }}
+                </p>
+              </div>
+              <button class="btn btn-sm btn-danger" (click)="deleteTraining(training.id)">Delete</button>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingSix">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix"
+        aria-expanded="false" aria-controls="collapseFour">
+        Regerence
+      </button>
+    </h2>
+    <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingThree"
+      data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <ul class="list-group">
+          <li *ngFor="let reference of references"
+            class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+              <div class="fw-bold">{{ reference.name }}</div>
+              <small class="text-muted">{{ reference.contact }}</small>
+              <p class="mb-0 mt-1">{{ reference.relation }}</p>
+            </div>
+            <button class="btn btn-sm btn-danger" (click)="deleteReference(reference.id)">Delete</button>
+          </li>
+        </ul>
+
+
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingSeven">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven"
+        aria-expanded="false" aria-controls="collapseFour">
+        Language
+      </button>
+    </h2>
+    <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingThree"
+      data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <ul class="list-group">
+          <li *ngFor="let language of languages"
+            class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+              <div class="fw-bold">{{ language.name }}</div>
+              <small class="text-muted">{{ language.proficiency }}</small>
+            </div>
+            <button class="btn btn-sm btn-danger" (click)="deleteLanguage(language.id)">Delete</button>
+          </li>
+        </ul>
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingSeven">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHobby"
+        aria-expanded="false" aria-controls="collapseFour">
+        Hobby
+      </button>
+    </h2>
+    <div id="collapseHobby" class="accordion-collapse collapse" aria-labelledby="headingThree"
+      data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <ul class="list-group">
+          <li *ngFor="let hobby of hobbies" class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+              <div class="fw-bold">{{ hobby.name }}</div>
+            </div>
+            <button class="btn btn-sm btn-danger" (click)="deleteHobby(hobby.id)">Delete</button>
+          </li>
+        </ul>
+
+
+
+
       </div>
     </div>
   </div>

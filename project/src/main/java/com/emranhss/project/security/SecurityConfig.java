@@ -40,8 +40,8 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(req -> req
-                        .requestMatchers("/api/user/login","/auth/login", "/api/jobseeker/","/images/**", "/api/user/active/**", "/api/education/**").permitAll()
-                        .requestMatchers("/api/user/all", "/api/jobseeker/profile", "/api/education/all", "/api/experience/all", "/api/experience/add", "/api/education/add").hasRole("JOBSEEKER")
+                        .requestMatchers("/api/user/login","/auth/login", "/api/jobseeker/","/images/**", "/api/user/active/**", "/api/education/**", "/api/skill/**").permitAll()
+                        .requestMatchers("/api/user/all", "/api/jobseeker/profile", "/api/education/all", "/api/experience/all", "/api/experience/add", "/api/education/add", "/api/skill/add", "/api/skill/all").hasRole("JOBSEEKER")
                         .anyRequest().authenticated()
                 )
                 .userDetailsService(userService)
