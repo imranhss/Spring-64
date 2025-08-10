@@ -1,25 +1,23 @@
-package com.emranhss.project.entity;
+package com.emranhss.project.dto;
 
+import com.emranhss.project.entity.Reference;
 
-import jakarta.persistence.*;
+public class ReferenceDTO {
 
-@Entity
-public class Reference {
-
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String contact;
     private String relation;
 
-    @ManyToOne
-    private JobSeeker jobSeeker;
-
-    public Reference() {
+    // Constructor to map from entity
+    public ReferenceDTO(Reference reference) {
+        this.id = reference.getId();
+        this.name = reference.getName();
+        this.contact = reference.getContact();
+        this.relation = reference.getRelation();
     }
 
+    // Getters and setters
     public Long getId() {
         return id;
     }
@@ -50,13 +48,5 @@ public class Reference {
 
     public void setRelation(String relation) {
         this.relation = relation;
-    }
-
-    public JobSeeker getJobSeeker() {
-        return jobSeeker;
-    }
-
-    public void setJobSeeker(JobSeeker jobSeeker) {
-        this.jobSeeker = jobSeeker;
     }
 }

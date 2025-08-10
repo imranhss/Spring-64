@@ -72,21 +72,7 @@ public class JobSeekerRestController {
 
     }
 
-//    @GetMapping("/profile")
-//    public ResponseEntity<?> getMyProfile() {
-//        // 1. Get current logged-in user email
-//        String email = SecurityContextHolder.getContext().getAuthentication().getName();
-//
-//        // 2. Get User from DB
-//        User user = userRepo.findByEmail(email)
-//                .orElseThrow(() -> new RuntimeException("User Not Found"));
-//
-//        // 3. Get JobSeeker by User ID (assuming relation exists)
-//        JobSeeker jobSeeker = jobSeekerRepository.findByUserId(user.getId())
-//                .orElseThrow(() -> new RuntimeException("JobSeeker Profile Not Found"));
-//
-//        return ResponseEntity.ok(jobSeeker);
-//    }
+
 
     @GetMapping("/profile")
     public ResponseEntity<?> getProfile(Authentication authentication) {

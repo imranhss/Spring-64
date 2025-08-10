@@ -53,5 +53,12 @@ public class EducationRestController {
     }
 
 
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> deleteEducation(@PathVariable Long id) {
+        educationService.delete(id);
+        return ResponseEntity.noContent().build(); // HTTP 204 No Content
+    }
+
+
 
 }

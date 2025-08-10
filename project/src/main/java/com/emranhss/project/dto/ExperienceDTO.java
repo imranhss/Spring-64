@@ -1,25 +1,30 @@
-package com.emranhss.project.entity;
+package com.emranhss.project.dto;
 
-import jakarta.persistence.*;
+import com.emranhss.project.entity.Experience;
 
-import java.time.LocalDate;
 import java.util.Date;
 
-@Entity
-public class Experience {
+public class ExperienceDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
-
     private String company;
     private String position;
     private Date fromDate;
     private Date toDate;
     private String description;
 
-    @ManyToOne
-    private JobSeeker jobSeeker;
+    // Constructor mapping from entity
+
+
+    public ExperienceDTO(Experience experience) {
+        this.id = experience.getId();
+        this.company = experience.getCompany();
+        this.position = experience.getPosition();
+        this.fromDate = experience.getFromDate();
+        this.toDate = experience.getToDate();
+        this.description = experience.getDescription();
+    }
 
     public Long getId() {
         return id;
@@ -67,13 +72,5 @@ public class Experience {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public JobSeeker getJobSeeker() {
-        return jobSeeker;
-    }
-
-    public void setJobSeeker(JobSeeker jobSeeker) {
-        this.jobSeeker = jobSeeker;
     }
 }

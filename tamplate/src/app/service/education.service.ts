@@ -13,7 +13,8 @@ export class EducationService {
 
   private apiUrl = environment.apiBaseUrl + '/education/';
 
-  constructor(private http: HttpClient,
+  constructor(
+    private http: HttpClient,
     @Inject(PLATFORM_ID) private platformId: Object
   ) { }
 
@@ -42,6 +43,12 @@ export class EducationService {
     }
 
     return this.http.get<Education[]>(this.apiUrl + 'all', { headers });
+  }
+
+
+  deleteEducation(id: number): Observable<void> {
+ 
+    return this.http.delete<void>(this.apiUrl + id);
   }
 
 

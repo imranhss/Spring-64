@@ -16,44 +16,246 @@
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="card p-4 mt-4">
-    <h5>Add New Education</h5>
-    <form (ngSubmit)="addEducation()">
-      <div class="row mb-2">
-        <div class="col-md-6">
-          <label>Level</label>
-          <input type="text" [(ngModel)]="newEducation.level" name="level" class="form-control" required>
-        </div>
-        <div class="col-md-6">
-          <label>Institute</label>
-          <input type="text" [(ngModel)]="newEducation.institute" name="institute" class="form-control" required>
-        </div>
-        <div class="col-md-6">
-          <label>Result</label>
-          <input type="text" [(ngModel)]="newEducation.result" name="result" class="form-control" required>
-        </div>
-        <div class="col-md-6">
-          <label>Year</label>
-          <input type="text" [(ngModel)]="newEducation.year" name="year" class="form-control" required>
-        </div>
-      </div>
-      <button type="submit" class="btn btn-primary">Add Education</button>
-    </form>
-  </div>
+    <button class="btn btn-danger mt-3" (click)="generateCV()">Download CV as PDF</button>
 
-  <div *ngIf="educations.length > 0" class="card p-4 mt-4">
-    <h5>Educations</h5>
-    <div *ngFor="let edu of educations" class="border-bottom py-2">
-      <div><strong>Level:</strong> {{ edu.level }}</div>
-      <div><strong>Institute:</strong> {{ edu.institute }}</div>
-      <div><strong>Board:</strong> {{ edu.board }}</div>
-      <div><strong>Result:</strong> {{ edu.result }}</div>
-      <div><strong>Year:</strong> {{ edu.year }}</div>
-    </div>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      Add Education
+    </button>
+    <!-- Add Experience Button -->
+    <button type="button" class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#experienceModal">
+      Add Experience
+    </button>
+
+    <button type="button" class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#extracurricularModal">
+      Add Extracurricular
+    </button>
+
+
   </div>
 
 
 </div>
 
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Education</h1>
+
+
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="card p-4 mt-4">
+
+          <form (ngSubmit)="addEducation()">
+            <div class="row mb-2">
+              <div class="col-md-6">
+                <label>Level</label>
+                <input type="text" [(ngModel)]="newEducation.level" name="level" class="form-control" required>
+              </div>
+              <div class="col-md-6">
+                <label>Institute</label>
+                <input type="text" [(ngModel)]="newEducation.institute" name="institute" class="form-control" required>
+              </div>
+              <div class="col-md-6">
+                <label>Result</label>
+                <input type="text" [(ngModel)]="newEducation.result" name="result" class="form-control" required>
+              </div>
+              <div class="col-md-6">
+                <label>Year</label>
+                <input type="text" [(ngModel)]="newEducation.year" name="year" class="form-control" required>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Education</button>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="addEducation()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Add Experience Modal -->
+<div class="modal fade" id="experienceModal" tabindex="-1" aria-labelledby="experienceModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="experienceModalLabel">Add New Experience</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="addExperience()">
+          <div class="mb-3">
+            <label>Company</label>
+            <input type="text" [(ngModel)]="newExperience.company" name="company" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label>Position</label>
+            <input type="text" [(ngModel)]="newExperience.position" name="position" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label>From Date</label>
+            <input type="date" [(ngModel)]="newExperience.fromDate" name="fromDate" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label>To Date</label>
+            <input type="date" [(ngModel)]="newExperience.toDate" name="toDate" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label>Description</label>
+            <textarea [(ngModel)]="newExperience.description" name="description" class="form-control"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Save Experience</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Add Extracurricular Modal -->
+<div class="modal fade" id="extracurricularModal" tabindex="-1" aria-labelledby="extracurricularModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="extracurricularModalLabel">Add New Extracurricular</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="addExtracurricular()">
+          <div class="mb-3">
+            <label>Title</label>
+            <input type="text" [(ngModel)]="newExtracurricular.title" name="title" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label>Role</label>
+            <input type="text" [(ngModel)]="newExtracurricular.role" name="role" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label>Description</label>
+            <textarea [(ngModel)]="newExtracurricular.description" name="description" class="form-control"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Save Extracurricular</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Accordion -->
+<div class="accordion" id="accordionExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingOne">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+        aria-expanded="true" aria-controls="collapseOne">
+        Experience
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+      data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+
+        <div *ngIf="experiences.length > 0" class="card p-4 mt-4">
+          <h5>Experiences</h5>
+          <div *ngFor="let exp of experiences" class="border-bottom py-2">
+            <div><strong>Company:</strong> {{ exp.company }}</div>
+            <div><strong>Position:</strong> {{ exp.position }}</div>
+            <div><strong>From:</strong> {{ exp.fromDate }}</div>
+            <div><strong>To:</strong> {{ exp.toDate }}</div>
+            <div><strong>Description:</strong> {{ exp.description }}</div>
+            <button class="btn btn-sm btn-danger" (click)="deleteExperience(exp.id)">Delete</button>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingTwo">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+        aria-expanded="false" aria-controls="collapseTwo">
+        Education
+      </button>
+    </h2>
+    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+      data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div *ngIf="educations.length > 0" class="card p-4 mt-4">
+          <h5>Educations</h5>
+          <div *ngFor="let edu of educations" class="border-bottom py-2">
+            <div><strong>Level:</strong> {{ edu.level }}</div>
+            <div><strong>Institute:</strong> {{ edu.institute }}</div>
+            <div><strong>Board:</strong> {{ edu.board }}</div>
+            <div><strong>Result:</strong> {{ edu.result }}</div>
+            <div><strong>Year:</strong> {{ edu.year }}</div>
+            <div> <button class="btn btn-sm btn-danger" (click)="deleteEducation(edu.id)">
+                Delete
+              </button>
+              <a href="" class="btn btn-warning m-2">Edit</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingThree">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree"
+        aria-expanded="false" aria-controls="collapseThree">
+        Extracurricular
+      </button>
+    </h2>
+    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+      data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <ul class="list-group">
+          <li *ngFor="let ex of extracurriculars"
+            class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+              <div class="fw-bold">{{ ex.title }}</div>
+              <small class="text-muted">{{ ex.role }}</small>
+              <p class="mb-0 mt-1">{{ ex.description }}</p>
+            </div>
+            <button class="btn btn-sm btn-danger" (click)="deleteExtracurricular(ex.id)">Delete</button>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingThree">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour"
+        aria-expanded="false" aria-controls="collapseFour">
+        Accordion Item #3
+      </button>
+    </h2>
+    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingThree"
+      data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin
+        adds the appropriate classes that we use to style each element. These classes control the overall appearance, as
+        well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our
+        default variables. It's also worth noting that just about any HTML can go within the
+        <code>.accordion-body</code>, though the transition does limit overflow.
+      </div>
+    </div>
+  </div>
+
+</div>

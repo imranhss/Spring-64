@@ -40,8 +40,8 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(req -> req
-                        .requestMatchers("/api/user/login","/auth/login", "/api/jobseeker/","/images/**", "/api/user/active/**").permitAll()
-                        .requestMatchers("/api/user/all", "/api/jobseeker/profile", "/api/education/all").hasRole("JOBSEEKER")
+                        .requestMatchers("/api/user/login","/auth/login", "/api/jobseeker/","/images/**", "/api/user/active/**", "/api/education/**").permitAll()
+                        .requestMatchers("/api/user/all", "/api/jobseeker/profile", "/api/education/all", "/api/experience/all", "/api/experience/add", "/api/education/add").hasRole("JOBSEEKER")
                         .anyRequest().authenticated()
                 )
                 .userDetailsService(userService)
@@ -70,9 +70,9 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:4200", "http://127.0.0.1:4200"));
+        configuration.setAllowedOrigins(List.of("http://localhost:4200", "http://192.168.88.250:4200"));
         configuration.setAllowedMethods(List.of("GET", "POST", "DELETE", "PUT", "OPTIONS"));
-        configuration.setAllowedHeaders(List.of("Authorization", "Cache_Control", "Content-type"));
+        configuration.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -80,6 +80,6 @@ public class SecurityConfig {
         return source;
     }
 
-    
+
 
 }

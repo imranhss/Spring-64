@@ -28,6 +28,7 @@ public class EducationService {
     }
 
     public Education saveEducation(Education education, String email) {
+
         JobSeeker jobSeeker = jobSeekerRepository.findByUserEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("JobSeeker not found"));
 
