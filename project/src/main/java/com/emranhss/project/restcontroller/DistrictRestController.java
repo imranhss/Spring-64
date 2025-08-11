@@ -13,33 +13,36 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/district")
+@RequestMapping("/api/district/")
 public class DistrictRestController {
 
     @Autowired
     private DistrictService districtService;
 
-
-    @PostMapping("")
-    public ResponseEntity<String> saveDisrict(@RequestBody District district) {
-        try {
-            districtService.save(district);
-            return ResponseEntity.ok("Data Saved");
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
+    @GetMapping("")
+    public List<DistrictResponseDTO> getAllDistricts() {
+        return districtService.getAllDistricts();
     }
 
-    @GetMapping("")
-    public ResponseEntity<List<DistrictResponseDTO>> getDistricts() {
+    @GetMapping("{id}")
+    public District getDistrictById(@PathVariable int id) {
+        return districtService.getDistrictById(id).orElseThrow(() -> new RuntimeException("District not found"));
+    }
 
-        try {
-            List<DistrictResponseDTO> dList = districtService.getAllDistrictDTOs();
+    @PostMapping("")
+    public District saveDistrict(@RequestBody District district, @RequestParam int divisionId) {
+        return districtService.createDistrict(district, divisionId);
+    }
 
-            return ResponseEntity.ok(dList);
-        }catch (EntityNotFoundException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
+    @PutMapping("{id}")
+    public District updateDistrict(@PathVariable int id, @RequestBody District district) {
+        district.setId(id);
+        return districtService.saveOrUpdateDistrict(district);
+    }
+
+    @DeleteMapping("{id}")
+    public void deleteDistrict(@PathVariable int id) {
+        districtService.deleteDistrictById(id);
     }
 
 

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/countries/")
@@ -16,17 +17,68 @@ public class CountryRestController {
     @Autowired
     private CountryService countryService;
 
+
+
+    // Get all countries as DTOs
     @GetMapping("")
-    public ResponseEntity<List<CountryResponseDTO>> getCountries() {
-        List<CountryResponseDTO> dtoList = countryService.getAllCountryDTOs();
-        return ResponseEntity.ok(dtoList);
+    public List<CountryResponseDTO> getAllCountries() {
+        return countryService.getAllCountryDTOs();
     }
 
+    // Get single country by ID (full entity)
+    @GetMapping("/{id}")
+    public ResponseEntity<Country> getCountryById(@PathVariable int id) {
+        Optional<Country> country = countryService.getAllCountries()
+                .stream()
+                .filter(c -> c.getId() == id)
+                .findFirst();
+
+        return country.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    // Create new country
     @PostMapping("")
     public ResponseEntity<Country> createCountry(@RequestBody Country country) {
-        Country saved = countryService.saveCountry(country);
-        return ResponseEntity.ok(saved);
+        Country savedCountry = countryService.saveCountry(country);
+        return ResponseEntity.ok(savedCountry);
     }
 
+    // Update existing country
+    @PutMapping("/{id}")
+    public ResponseEntity<Country> updateCountry(@PathVariable int id, @RequestBody Country country) {
+        Optional<Country> existingCountryOpt = countryService.getAllCountries()
+                .stream()
+                .filter(c -> c.getId() == id)
+                .findFirst();
+
+        if (existingCountryOpt.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Country existingCountry = existingCountryOpt.get();
+        existingCountry.setName(country.getName());
+        // You can update divisions if needed, but usually divisions are managed separately
+
+        Country updatedCountry = countryService.saveCountry(existingCountry);
+        return ResponseEntity.ok(updatedCountry);
+    }
+
+    // Delete country by ID
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCountry(@PathVariable int id) {
+        Optional<Country> existingCountryOpt = countryService.getAllCountries()
+                .stream()
+                .filter(c -> c.getId() == id)
+                .findFirst();
+
+        if (existingCountryOpt.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        countryService.saveCountry(existingCountryOpt.get()); // you can remove this line if unnecessary
+        countryService.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
 
 }

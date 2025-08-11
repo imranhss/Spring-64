@@ -1,0 +1,50 @@
+<div class="container mt-4">
+    <form [formGroup]="divisionForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+            <label for="name" class="form-label">Division Name</label>
+            <input id="name" type="text" formControlName="name" class="form-control"
+                placeholder="Enter division name" />
+        </div>
+
+        <div formGroupName="country" class="mb-3">
+            <label for="countryId" class="form-label">Country</label>
+            <select id="countryId" formControlName="id" class="form-select">
+                <option value="" disabled selected>Select a country</option>
+                <option *ngFor="let country of countries" [value]="country.id">
+                    {{ country.name }}
+                </option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary me-2">
+            {{ editMode ? 'Update' : 'Create' }}
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="resetForm()" *ngIf="editMode">Cancel</button>
+    </form>
+
+
+    <hr />
+
+    <table class="table table-striped mt-3">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Country</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let d of divisions">
+                <td>{{ d.id }}</td>
+                <td>{{ d.name }}</td>
+                <td>{{ d.country?.name || 'N/A' }}</td>
+                <td>
+                    <button class="btn btn-sm btn-warning me-2" (click)="onEdit(d)">Edit</button>
+                    <button class="btn btn-sm btn-danger" (click)="onDelete(d.id!)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>

@@ -7,7 +7,7 @@ public class DivisionResponseDTO {
 
     private int id;
     private String name;
-    private List<Integer> districts;  // Just District IDs
+    private CountryResponseDTO country; // nested DTO with id and name // Just District IDs
 
     public int getId() {
         return id;
@@ -25,11 +25,11 @@ public class DivisionResponseDTO {
         this.name = name;
     }
 
-    public List<Integer> getDistricts() {
-        return districts;
+    public CountryResponseDTO getCountry() {
+        return country;
     }
 
-    public void setDistricts(List<Integer> districts) {
-        this.districts = districts;
+    public void setCountry(CountryResponseDTO country) {
+        this.country = country;
     }
 }

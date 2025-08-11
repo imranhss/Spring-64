@@ -1,5 +1,8 @@
 package com.emranhss.project.service;
 
+import com.emranhss.project.dto.DistrictResponseDTO;
+import com.emranhss.project.dto.PoliceStationResponseDTO;
+import com.emranhss.project.entity.District;
 import com.emranhss.project.entity.PoliceStation;
 import com.emranhss.project.repository.IPoliceStationRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,15 +18,31 @@ public class PoliceStationService {
     private IPoliceStationRepo policeStationRepo;
 
 
-    public void saveOrUpdate(PoliceStation ps) {
-        policeStationRepo.save(ps);
+    public PoliceStation saveOrUpdate(PoliceStation ps) {
+        return policeStationRepo.save(ps);
     }
 
 
-    public List<PoliceStation> findAll() {
 
-        return policeStationRepo.findAll();
+
+    public List<PoliceStationResponseDTO> getAllPoliceStationsDTOs() {
+        return policeStationRepo.findAll().stream().map(ps -> {
+            PoliceStationResponseDTO dto = new PoliceStationResponseDTO();
+            dto.setId(ps.getId());
+            dto.setName(ps.getName());
+
+            District district = ps.getDistrict();
+            if (district != null) {
+                DistrictResponseDTO districtDTO = new DistrictResponseDTO();
+                districtDTO.setId(district.getId());
+                districtDTO.setName(district.getName());
+                dto.setDistrict(districtDTO);
+            }
+
+            return dto;
+        }).toList();
     }
+
 
     public Optional<PoliceStation> findById(Integer id) {
         return policeStationRepo.findById(id);
@@ -32,5 +51,20 @@ public class PoliceStationService {
     public void deleteById(Integer id) {
         policeStationRepo.deleteById(id);
     }
+
+
+    public PoliceStation update(Integer id, PoliceStation updatedPoliceStation) {
+        return policeStationRepo.findById(id).map(existingPs -> {
+            existingPs.setName(updatedPoliceStation.getName());
+
+            // Update district if provided
+            if (updatedPoliceStation.getDistrict() != null) {
+                existingPs.setDistrict(updatedPoliceStation.getDistrict());
+            }
+
+            return policeStationRepo.save(existingPs);
+        }).orElseThrow(() -> new RuntimeException("PoliceStation not found with id " + id));
+    }
+
 
 }

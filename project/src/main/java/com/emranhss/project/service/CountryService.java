@@ -28,14 +28,19 @@ public class CountryService {
                     .map(d -> d.getId())
                     .toList();
 
-            dto.setDivisions(divisionIds);
+
 
             return dto;
         }).toList();
     }
 
+
     public Country saveCountry(Country country) {
         return countryRepository.save(country);
+    }
+
+    public void deleteById(long id) {
+        countryRepository.deleteById(id);
     }
 
 }

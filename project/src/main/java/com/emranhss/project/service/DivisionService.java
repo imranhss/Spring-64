@@ -1,5 +1,6 @@
 package com.emranhss.project.service;
 
+import com.emranhss.project.dto.CountryResponseDTO;
 import com.emranhss.project.dto.DivisionResponseDTO;
 import com.emranhss.project.entity.Country;
 import com.emranhss.project.entity.Division;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DivisionService {
@@ -16,37 +18,40 @@ public class DivisionService {
     @Autowired
     private IDivisionRepo divisionRepository;
     @Autowired
-    private ICountryRepo countryRepo;
+    private IDivisionRepo divisionRepo;
 
     public List<Division> getAllDivisions() {
-        return divisionRepository.findAll();
+        return divisionRepo.findAll();
     }
 
     public List<DivisionResponseDTO> getAllDivisionDTOs() {
-        return getAllDivisions().stream().map(div -> {
+        return divisionRepository.findAll().stream().map(d -> {
             DivisionResponseDTO dto = new DivisionResponseDTO();
-            dto.setId(div.getId());
-            dto.setName(div.getName());
+            dto.setId(d.getId());
+            dto.setName(d.getName());
 
-            List<Integer> districtIds = div.getDistricts().stream()
-                    .map(d -> d.getId())
-                    .toList();
-            dto.setDistricts(districtIds);
+            Country c = d.getCountry();
+            if (c != null) {
+                CountryResponseDTO countryDTO = new CountryResponseDTO();
+                countryDTO.setId(c.getId());
+                countryDTO.setName(c.getName());
+                dto.setCountry(countryDTO);
+            }
 
             return dto;
         }).toList();
     }
 
+    public Optional<Division> findById(int id) {
+        return divisionRepo.findById(id);
+    }
+
     public Division saveDivision(Division division) {
-        if(division.getCountry()    != null) {
-            long countryId = division.getCountry().getId();
-            Country country = countryRepo.findById(countryId)
-                    .orElseThrow(() -> new RuntimeException("Country not found WITH ID: " + countryId));
+        return divisionRepo.save(division);
+    }
 
-            division.setCountry(country);
-        }
-
-        return divisionRepository.save(division);
+    public void deleteById(int id) {
+        divisionRepo.deleteById(id);
     }
 
 

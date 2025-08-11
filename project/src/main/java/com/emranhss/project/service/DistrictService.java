@@ -1,6 +1,7 @@
 package com.emranhss.project.service;
 
 import com.emranhss.project.dto.DistrictResponseDTO;
+import com.emranhss.project.dto.DivisionResponseDTO;
 import com.emranhss.project.entity.District;
 import com.emranhss.project.entity.Division;
 import com.emranhss.project.repository.IDistrictRepo;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class DistrictService {
@@ -18,54 +21,45 @@ public class DistrictService {
     @Autowired
     private IDivisionRepo divisionRepo;
 
-    public void save(District district) {
 
-        if(district.getDivision() != null){
-
-            int divId = district.getDivision().getId();
-            Division division = divisionRepo.findById(divId)
-                    .orElseThrow(() -> new RuntimeException("Division not found WITH THIS ID: " + divId));
-
-            district.setDivision(division);
-        }
-
-        districtRepo.save(district);
-    }
-
-
-    public List<District> getAllDistrict() {
-        return districtRepo.findAll();
-    }
-
-
-    public List<DistrictResponseDTO> getAllDistrictDTOs() {
-        List<District> districts = getAllDistrict();
-
-        return districts.stream().map(d -> {
+    public List<DistrictResponseDTO> getAllDistricts() {
+        return districtRepo.findAll().stream().map(district -> {
             DistrictResponseDTO dto = new DistrictResponseDTO();
-            dto.setId(d.getId());
-            dto.setName(d.getName());
+            dto.setId(district.getId());
+            dto.setName(district.getName());
 
-            // Map PoliceStations to their IDs only
-            List<Integer> psIds = d.getPoliceStations().stream()
-                    .map(ps -> ps.getId())
-                    .toList();
+            Division division = district.getDivision();
+            if (division != null) {
+                DivisionResponseDTO divisionDTO = new DivisionResponseDTO();
+                divisionDTO.setId(division.getId());
+                divisionDTO.setName(division.getName());
+                dto.setDivision(divisionDTO);
+            }
 
-            dto.setPoliceStations(psIds);
             return dto;
         }).toList();
     }
 
-    public District getDistrictById(int id) {
-        return districtRepo.findById(id).get();
+
+    public District saveOrUpdateDistrict(District district) {
+        return districtRepo.save(district);
+    }
+
+    public Optional<District> getDistrictById(int id) {
+        return districtRepo.findById(id);
     }
 
     public void deleteDistrictById(int id) {
         districtRepo.deleteById(id);
     }
 
-    public District getDistrictByName(String name) {
-        return districtRepo.findByName(name);
+    // To create District linked to a Division by divisionId
+    public District createDistrict(District district, int divisionId) {
+        Division division = divisionRepo.findById(divisionId)
+                .orElseThrow(() -> new RuntimeException("Division not found with id " + divisionId));
+        district.setDivision(division);
+        return districtRepo.save(district);
     }
-
 }
+
+

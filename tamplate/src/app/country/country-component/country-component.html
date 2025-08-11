@@ -1,0 +1,37 @@
+<div class="container mt-4">
+
+  <form [formGroup]="countryForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="name" class="form-label">Country Name</label>
+      <input type="text" id="name" formControlName="name" class="form-control" placeholder="Enter country name">
+    </div>
+
+    <button type="submit" class="btn btn-primary me-2" [disabled]="countryForm.invalid">
+      {{ editMode ? 'Update' : 'Create' }}
+    </button>
+
+    <button type="button" class="btn btn-secondary" (click)="resetForm()" *ngIf="editMode">Cancel</button>
+  </form>
+
+  <hr>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Country Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let country of countries">
+        <td>{{ country.id }}</td>
+        <td>{{ country.name }}</td>
+        <td>
+          <button class="btn btn-sm btn-warning me-2" (click)="onEdit(country)">Edit</button>
+          <button class="btn btn-sm btn-danger" (click)="onDelete(country.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

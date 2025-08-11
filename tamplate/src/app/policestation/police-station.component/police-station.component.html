@@ -1,0 +1,51 @@
+<div class="container mt-3">
+  <form [formGroup]="policeStationForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="name" class="form-label">Police Station Name</label>
+      <input type="text" id="name" formControlName="name" class="form-control" />
+      <div *ngIf="policeStationForm.get('name')?.invalid && policeStationForm.get('name')?.touched" class="text-danger">
+        Name is required.
+      </div>
+    </div>
+
+    <div formGroupName="district" class="mb-3">
+      <label for="district" class="form-label">District</label>
+      <select id="district" formControlName="id" class="form-select">
+        <option value="" disabled>Select District</option>
+        <option *ngFor="let d of districts" [value]="d.id">{{ d.name }}</option>
+      </select>
+      <div *ngIf="policeStationForm.get('district.id')?.invalid && policeStationForm.get('district.id')?.touched" class="text-danger">
+        District is required.
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="policeStationForm.invalid">
+      {{ editMode ? 'Update' : 'Add' }}
+    </button>
+    <button type="button" class="btn btn-secondary ms-2" (click)="resetForm()" *ngIf="editMode">Cancel</button>
+  </form>
+
+  <hr />
+
+  <table class="table table-striped mt-3">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>District</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ps of policeStations">
+        <td>{{ ps.id }}</td>
+        <td>{{ ps.name }}</td>
+        <td>{{ ps.district?.name || 'N/A' }}</td>
+        <td>
+          <button class="btn btn-sm btn-warning me-2" (click)="onEdit(ps)">Edit</button>
+          <button class="btn btn-sm btn-danger" (click)="onDelete(ps.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

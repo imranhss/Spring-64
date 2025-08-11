@@ -8,24 +8,59 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/division")
+@RequestMapping("/api/division/")
 public class DivisionRestController {
 
     @Autowired
     private DivisionService divisionService;
 
+
+
     @GetMapping("")
-    public ResponseEntity<List<DivisionResponseDTO>> getDivisions() {
-        List<DivisionResponseDTO> dtoList = divisionService.getAllDivisionDTOs();
-        return ResponseEntity.ok(dtoList);
+    public List<DivisionResponseDTO> getAllDivisions() {
+        return divisionService.getAllDivisionDTOs();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Division> getDivisionById(@PathVariable int id) {
+        Optional<Division> division = divisionService.findById(id);
+        return division.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping("")
     public ResponseEntity<Division> createDivision(@RequestBody Division division) {
         Division saved = divisionService.saveDivision(division);
         return ResponseEntity.ok(saved);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Division> updateDivision(@PathVariable int id, @RequestBody Division division) {
+        Optional<Division> existing = divisionService.findById(id);
+        if (existing.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Division toUpdate = existing.get();
+        toUpdate.setName(division.getName());
+        toUpdate.setCountry(division.getCountry());
+        // Usually, districts are managed separately
+
+        Division updated = divisionService.saveDivision(toUpdate);
+        return ResponseEntity.ok(updated);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteDivision(@PathVariable int id) {
+        Optional<Division> existing = divisionService.findById(id);
+        if (existing.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        divisionService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

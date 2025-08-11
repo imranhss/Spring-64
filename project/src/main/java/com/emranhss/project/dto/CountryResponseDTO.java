@@ -5,7 +5,7 @@ import java.util.List;
 public class CountryResponseDTO {
     private int id;
     private String name;
-    private List<Integer> divisions;
+
 
     // Getters & setters
 
@@ -25,11 +25,5 @@ public class CountryResponseDTO {
         this.name = name;
     }
 
-    public List<Integer> getDivisions() {
-        return divisions;
-    }
 
-    public void setDivisions(List<Integer> divisions) {
-        this.divisions = divisions;
-    }
 }

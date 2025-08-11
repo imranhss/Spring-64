@@ -15,6 +15,10 @@ import { AddjobseekerComponent } from './jobseekr/addjobseeker.component/addjobs
 import { LoginComponent } from './auth/login.component/login.component';
 import { JobseekerProfileComponent } from './jobseeker/jobseeker-profile.component/jobseeker-profile.component';
 import { AuthInterceptor } from './service/authInterceptor';
+import { PoliceStationComponent } from './policestation/police-station.component/police-station.component';
+import { CountryComponent } from './country/country-component/country-component';
+import { DivisionComponent } from './division/division-component/division-component';
+import { DistrictComponent } from './district/district.component/district.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +31,11 @@ import { AuthInterceptor } from './service/authInterceptor';
     AlluserComponent,
     AddjobseekerComponent,
     LoginComponent,
-    JobseekerProfileComponent
+    JobseekerProfileComponent,
+    PoliceStationComponent,
+    CountryComponent,
+    DivisionComponent,
+    DistrictComponent
   ],
   imports: [
     BrowserModule,
