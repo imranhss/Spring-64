@@ -1,11 +1,9 @@
 package com.emranhss.project.service;
 
 import com.emranhss.project.dto.AuthenticationResponse;
-import com.emranhss.project.entity.JobSeeker;
-import com.emranhss.project.entity.Role;
-import com.emranhss.project.entity.Token;
-import com.emranhss.project.entity.User;
+import com.emranhss.project.entity.*;
 import com.emranhss.project.jwt.JwtService;
+import com.emranhss.project.repository.IEmployerRepository;
 import com.emranhss.project.repository.ITokenRepository;
 import com.emranhss.project.repository.IUserRepo;
 import jakarta.mail.MessagingException;
@@ -36,6 +34,9 @@ public class AuthService {
     private IUserRepo userRepo;
     @Autowired
     private ITokenRepository tokenRepository;
+
+    @Autowired
+    private IEmployerRepository employerRepository;
 
     @Autowired
     private EmailService emailService;
@@ -288,6 +289,66 @@ public class AuthService {
             return  "Invalid Activation Token!";
         }
 
+    }
+
+
+
+    // for User folder
+    public String saveImageForEmployeer(MultipartFile file, Employer employer) {
+
+        Path uploadPath = Paths.get(uploadDir + "/employer");
+        if (!Files.exists(uploadPath)) {
+            try {
+                Files.createDirectory(uploadPath);
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        String employerName = employer.getCompanyName();
+        String fileName = employerName.trim().replaceAll("\\s+", "_");
+
+        String savedFileName = fileName + "_" + UUID.randomUUID().toString();
+
+        try {
+            Path filePath = uploadPath.resolve(savedFileName);
+            Files.copy(file.getInputStream(), filePath);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return savedFileName;
+
+    }
+
+
+    public void registerEmployer(User user, MultipartFile imageFile, Employer employerData) {
+        if (imageFile != null && !imageFile.isEmpty()) {
+            // Save image for both User and JobSeeker
+            String filename = saveImage(imageFile, user);
+            String employerPhoto = saveImageForEmployeer(imageFile, employerData);
+            employerData.setLogo(employerPhoto);
+            user.setPhoto(filename);
+        }
+
+        // Encode password before saving User
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole(Role.EMPLOYER);
+        user.setActive(false);
+
+        // Save User FIRST and get persisted instance
+        User savedUser = userRepo.save(user);
+
+        // Now, associate saved User with JobSeeker and save JobSeeker
+        employerData.setUser(savedUser);
+        employerRepository.save(employerData);
+
+        // Now generate token and save Token associated with savedUser
+        String jwt = jwtService.generateToken(savedUser);
+        saveUserToken(jwt, savedUser);
+
+        // Send Activation Email
+        sendActivationEmail(savedUser);
     }
 
 

@@ -10,6 +10,14 @@ public class PoliceStationResponseDTO {
     private String name;
     private DistrictResponseDTO district;
 
+    public PoliceStationResponseDTO() {
+    }
+
+    public PoliceStationResponseDTO(int id, String name, DistrictResponseDTO district) {
+        this.id = id;
+        this.name = name;
+        this.district = district;
+    }
 
     public int getId() {
         return id;

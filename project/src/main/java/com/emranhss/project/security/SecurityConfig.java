@@ -40,7 +40,28 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(req -> req
-                        .requestMatchers("/api/user/login","/auth/login", "/api/jobseeker/","/images/**", "/api/user/active/**", "/api/policestation/**","/api/education/**", "/api/skill/**", "/api/countries/", "/api/countries/**", "/api/division/", "/api/division/**", "/api/district/", "/api/district/**", "/api/policestation/").permitAll()
+                        .requestMatchers("/api/user/login",
+                                "/auth/login",
+                                "/api/jobseeker/",
+                                "/images/**",
+                                "/api/user/active/**",
+                                "/api/policestation/**",
+                                "/api/education/**",
+                                "/api/skill/**",
+                                "/api/countries/",
+                                "/api/countries/**",
+                                "/api/division/",
+                                "/api/division/**",
+                                "/api/district/",
+                                "/api/district/**",
+                                "/api/policestation/",
+                                "/api/employer/",
+                                "/api/employer/**",
+                                "/api/countries/**",
+                                "/api/division/**",
+                                "/api/policestation/**",
+                                "/api/addresses/**"
+                                ).permitAll()
                         .requestMatchers("/api/user/all", "/api/jobseeker/profile", "/api/education/all", "/api/experience/all", "/api/experience/add", "/api/education/add", "/api/skill/add", "/api/skill/all").hasRole("JOBSEEKER")
                         .anyRequest().authenticated()
                 )

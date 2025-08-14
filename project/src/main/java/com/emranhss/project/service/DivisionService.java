@@ -15,8 +15,7 @@ import java.util.Optional;
 @Service
 public class DivisionService {
 
-    @Autowired
-    private IDivisionRepo divisionRepository;
+
     @Autowired
     private IDivisionRepo divisionRepo;
 
@@ -25,7 +24,7 @@ public class DivisionService {
     }
 
     public List<DivisionResponseDTO> getAllDivisionDTOs() {
-        return divisionRepository.findAll().stream().map(d -> {
+        return divisionRepo.findAll().stream().map(d -> {
             DivisionResponseDTO dto = new DivisionResponseDTO();
             dto.setId(d.getId());
             dto.setName(d.getName());
@@ -52,6 +51,19 @@ public class DivisionService {
 
     public void deleteById(int id) {
         divisionRepo.deleteById(id);
+    }
+
+
+//    public List<Division> getByCountryId(int countryId) {
+//        return divisionRepo.findByCountryId(countryId);
+//    }
+
+    // DivisionService
+    public List<DivisionResponseDTO> getByCountryId(int countryId) {
+        return divisionRepo.findByCountryId(countryId)
+                .stream()
+                .map(d -> new DivisionResponseDTO(d.getId(), d.getName(), null))
+                .toList();
     }
 
 

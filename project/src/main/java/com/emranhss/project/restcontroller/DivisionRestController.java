@@ -63,4 +63,13 @@ public class DivisionRestController {
         return ResponseEntity.noContent().build();
     }
 
+
+    // DivisionRestController
+    @GetMapping("/by-country/{countryId}")
+    public List<DivisionResponseDTO> getByCountry(@PathVariable int countryId) {
+        return divisionService.getByCountryId(countryId);
+    }
+
+
+
 }

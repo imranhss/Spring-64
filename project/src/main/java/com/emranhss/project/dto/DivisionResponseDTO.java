@@ -9,6 +9,15 @@ public class DivisionResponseDTO {
     private String name;
     private CountryResponseDTO country; // nested DTO with id and name // Just District IDs
 
+    public DivisionResponseDTO() {
+    }
+
+    public DivisionResponseDTO(int id, String name, CountryResponseDTO country) {
+        this.id = id;
+        this.name = name;
+        this.country = country;
+    }
+
     public int getId() {
         return id;
     }

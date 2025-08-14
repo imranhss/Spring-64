@@ -66,5 +66,17 @@ public class PoliceStationService {
         }).orElseThrow(() -> new RuntimeException("PoliceStation not found with id " + id));
     }
 
+//    public List<PoliceStation> getByDistrictId(int districtId) {
+//        return policeStationRepo.findByDistrictId(districtId);
+//    }
+
+    // PoliceStationService
+    public List<PoliceStationResponseDTO> getByDistrictId(int districtId) {
+        return policeStationRepo.findByDistrictId(districtId)
+                .stream()
+                .map(ps -> new PoliceStationResponseDTO(ps.getId(), ps.getName(), null))
+                .toList();
+    }
+
 
 }

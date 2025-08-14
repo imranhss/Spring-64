@@ -1,0 +1,28 @@
+<div class="container mt-4">
+  <h3 class="mb-3">All Addresses</h3>
+
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>#</th>
+        <th>Address Line 1</th>
+        <th>Address Line 2</th>
+        <th>Country</th>
+        <th>Division</th>
+        <th>District</th>
+        <th>Police Station</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let addr of addresses; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ addr.addressLine1 }}</td>
+        <td>{{ addr.addressLine2 }}</td>
+        <td>{{ addr.countryName }}</td>
+        <td>{{ addr.divisionName }}</td>
+        <td>{{ addr.districtName }}</td>
+        <td>{{ addr.policeStationName }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

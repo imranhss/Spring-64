@@ -2,7 +2,9 @@ package com.emranhss.project.restcontroller;
 
 import com.emranhss.project.dto.CountryResponseDTO;
 import com.emranhss.project.entity.Country;
+import com.emranhss.project.repository.ICountryRepo;
 import com.emranhss.project.service.CountryService;
+import com.emranhss.project.service.DistrictService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,9 @@ public class CountryRestController {
     @Autowired
     private CountryService countryService;
 
+    @Autowired
+    private ICountryRepo countryRepo;
+
 
 
     // Get all countries as DTOs
@@ -26,16 +31,24 @@ public class CountryRestController {
     }
 
     // Get single country by ID (full entity)
+//    @GetMapping("/{id}")
+//    public ResponseEntity<Country> getCountryById(@PathVariable int id) {
+//        Optional<Country> country = countryService.getAllCountries()
+//                .stream()
+//                .filter(c -> c.getId() == id)
+//                .findFirst();
+//
+//        return country.map(ResponseEntity::ok)
+//                .orElseGet(() -> ResponseEntity.notFound().build());
+//    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Country> getCountryById(@PathVariable int id) {
-        Optional<Country> country = countryService.getAllCountries()
-                .stream()
-                .filter(c -> c.getId() == id)
-                .findFirst();
-
-        return country.map(ResponseEntity::ok)
+        return countryRepo.findById(id)
+                .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+
 
     // Create new country
     @PostMapping("")

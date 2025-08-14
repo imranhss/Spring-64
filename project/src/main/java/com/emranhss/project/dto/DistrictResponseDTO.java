@@ -9,6 +9,15 @@ public class DistrictResponseDTO {
     private DivisionResponseDTO division;
 
 
+    public DistrictResponseDTO() {
+    }
+
+    public DistrictResponseDTO(int id, String name, DivisionResponseDTO division) {
+        this.id = id;
+        this.name = name;
+        this.division = division;
+    }
+
     public int getId() {
         return id;
     }

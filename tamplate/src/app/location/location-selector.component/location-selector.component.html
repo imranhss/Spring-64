@@ -1,0 +1,41 @@
+<div class="container mt-3">
+  <div class="row g-3">
+    
+    <!-- Country Dropdown -->
+    <div class="col-md-3">
+      <label for="country" class="form-label">Country:</label>
+      <select id="country" class="form-select" [(ngModel)]="selectedCountry" (change)="onCountryChange()">
+        <option value="">-- Select Country --</option>
+        <option *ngFor="let c of countries" [value]="c.id">{{ c.name }}</option>
+      </select>
+    </div>
+
+    <!-- Division Dropdown -->
+    <div class="col-md-3">
+      <label for="division" class="form-label">Division:</label>
+      <select id="division" class="form-select" [(ngModel)]="selectedDivision" (change)="onDivisionChange()">
+        <option value="">-- Select Division --</option>
+        <option *ngFor="let d of divisions" [value]="d.id">{{ d.name }}</option>
+      </select>
+    </div>
+
+    <!-- District Dropdown -->
+    <div class="col-md-3">
+      <label for="district" class="form-label">District:</label>
+      <select id="district" class="form-select" [(ngModel)]="selectedDistrict" (change)="onDistrictChange()">
+        <option value="">-- Select District --</option>
+        <option *ngFor="let d of districts" [value]="d.id">{{ d.name }}</option>
+      </select>
+    </div>
+
+    <!-- Police Station Dropdown -->
+    <div class="col-md-3">
+      <label for="policeStation" class="form-label">Police Station:</label>
+      <select id="policeStation" class="form-select">
+        <option value="">-- Select Police Station --</option>
+        <option *ngFor="let ps of policeStations" [value]="ps.id">{{ ps.name }}</option>
+      </select>
+    </div>
+
+  </div>
+</div>

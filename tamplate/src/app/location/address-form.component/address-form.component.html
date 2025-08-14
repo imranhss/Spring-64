@@ -1,0 +1,47 @@
+<div class="container mt-4">
+  <h3>Add Address</h3>
+
+  <div class="form-group mb-2">
+    <label>Address Line 1</label>
+    <input type="text" class="form-control" [(ngModel)]="addressLine1">
+  </div>
+
+  <div class="form-group mb-2">
+    <label>Address Line 2</label>
+    <input type="text" class="form-control" [(ngModel)]="addressLine2">
+  </div>
+
+  <div class="form-group mb-2">
+    <label>Country</label>
+    <select class="form-select" [(ngModel)]="selectedCountry" (change)="onCountryChange()">
+      <option value="">-- Select Country --</option>
+      <option *ngFor="let c of countries" [value]="c.id">{{ c.name }}</option>
+    </select>
+  </div>
+
+  <div class="form-group mb-2">
+    <label>Division</label>
+    <select class="form-select" [(ngModel)]="selectedDivision" (change)="onDivisionChange()">
+      <option value="">-- Select Division --</option>
+      <option *ngFor="let d of divisions" [value]="d.id">{{ d.name }}</option>
+    </select>
+  </div>
+
+  <div class="form-group mb-2">
+    <label>District</label>
+    <select class="form-select" [(ngModel)]="selectedDistrict" (change)="onDistrictChange()">
+      <option value="">-- Select District --</option>
+      <option *ngFor="let d of districts" [value]="d.id">{{ d.name }}</option>
+    </select>
+  </div>
+
+  <div class="form-group mb-3">
+    <label>Police Station</label>
+    <select class="form-select" [(ngModel)]="selectedPoliceStation">
+      <option value="">-- Select Police Station --</option>
+      <option *ngFor="let ps of policeStations" [value]="ps.id">{{ ps.name }}</option>
+    </select>
+  </div>
+
+  <button class="btn btn-primary" (click)="saveAddress()">Save Address</button>
+</div>

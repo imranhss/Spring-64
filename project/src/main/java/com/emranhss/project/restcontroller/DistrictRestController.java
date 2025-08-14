@@ -46,4 +46,13 @@ public class DistrictRestController {
     }
 
 
+    // DistrictRestController
+    @GetMapping("/by-division/{divisionId}")
+    public List<DistrictResponseDTO> getByDivision(@PathVariable int divisionId) {
+        return districtService.getByDivisionId(divisionId);
+    }
+
+
+
+
 }

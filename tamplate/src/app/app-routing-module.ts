@@ -10,6 +10,9 @@ import { PoliceStationComponent } from './policestation/police-station.component
 import { CountryComponent } from './country/country-component/country-component';
 import { DivisionComponent } from './division/division-component/division-component';
 import { DistrictComponent } from './district/district.component/district.component';
+import { LocationSelectorComponent } from './location/location-selector.component/location-selector.component';
+import { AddressFormComponent } from './location/address-form.component/address-form.component';
+import { AddressListComponent } from './location/address-list.component/address-list.component';
 
 const routes: Routes = [
   {path: '' , component:Addstudent},
@@ -21,6 +24,9 @@ const routes: Routes = [
   {path: 'country' , component:CountryComponent},
   {path: 'division' , component:DivisionComponent},
   {path: 'district' , component:DistrictComponent},
+  {path: 'location' , component:LocationSelectorComponent},
+  {path: 'address' , component:AddressFormComponent},
+  {path: 'addlist' , component:AddressListComponent},
 ];
 
 @NgModule({

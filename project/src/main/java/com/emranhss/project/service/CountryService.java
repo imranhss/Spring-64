@@ -39,7 +39,7 @@ public class CountryService {
         return countryRepository.save(country);
     }
 
-    public void deleteById(long id) {
+    public void deleteById(int id) {
         countryRepository.deleteById(id);
     }
 

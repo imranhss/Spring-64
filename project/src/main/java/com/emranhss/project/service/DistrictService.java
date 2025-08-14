@@ -60,6 +60,21 @@ public class DistrictService {
         district.setDivision(division);
         return districtRepo.save(district);
     }
+
+
+//    public List<District> getByDivisionId(int divisionId) {
+//        return districtRepo.findByDivisionId(divisionId);
+//    }
+
+    // DistrictService
+    public List<DistrictResponseDTO> getByDivisionId(int divisionId) {
+        return districtRepo.findByDivisionId(divisionId)
+                .stream()
+                .map(d -> new DistrictResponseDTO(d.getId(), d.getName(), null))
+                .toList();
+    }
+
+
 }
 
 
