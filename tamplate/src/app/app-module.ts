@@ -23,6 +23,7 @@ import { EmployerProfileComponent } from './employer/employer-profile.component/
 import { LocationSelectorComponent } from './location/location-selector.component/location-selector.component';
 import { AddressFormComponent } from './location/address-form.component/address-form.component';
 import { AddressListComponent } from './location/address-list.component/address-list.component';
+import { EmployerRegistration } from './employer/employer-registration/employer-registration';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { AddressListComponent } from './location/address-list.component/address-
     EmployerProfileComponent,
     LocationSelectorComponent,
     AddressFormComponent,
-    AddressListComponent
+    AddressListComponent,
+    EmployerRegistration
   ],
   imports: [
     BrowserModule,

@@ -1,1 +1,26 @@
-<p>employer-profile.component works!</p>
+<div class="container mt-4">
+  <h2>Employer Profile</h2>
+
+  <div *ngIf="loading">Loading profile...</div>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <div *ngIf="profile" class="card p-3 shadow-sm">
+    <div class="row">
+      <div class="col-md-3 text-center">
+        <img *ngIf="profile.logo"
+             [src]="'http://localhost:8080/uploads/' + profile.logo"
+             alt="Company Logo"
+             class="img-fluid rounded mb-3"
+             width="150" height="150">
+      </div>
+      <div class="col-md-9">
+        <h4>{{ profile.companyName }}</h4>
+        <p><strong>Website: </strong> <a [href]="profile.companyWebsite" target="_blank">{{ profile.companyWebsite }}</a></p>
+        <p><strong>Address:</strong> {{ profile.companyAddress }}</p>
+        <p><strong>Contact Person:</strong> {{ profile.contactPerson }}</p>
+        <p><strong>Phone:</strong> {{ profile.phone }}</p>
+        <p><strong>Email:</strong> {{ profile.email }}</p>
+      </div>
+    </div>
+  </div>
+</div>

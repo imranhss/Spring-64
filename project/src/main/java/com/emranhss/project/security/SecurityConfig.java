@@ -60,9 +60,11 @@ public class SecurityConfig {
                                 "/api/countries/**",
                                 "/api/division/**",
                                 "/api/policestation/**",
-                                "/api/addresses/**"
+                                "/api/addresses/**",
+                                "/api/employer/profile"
                                 ).permitAll()
                         .requestMatchers("/api/user/all", "/api/jobseeker/profile", "/api/education/all", "/api/experience/all", "/api/experience/add", "/api/education/add", "/api/skill/add", "/api/skill/all").hasRole("JOBSEEKER")
+                        .requestMatchers("api/employer/profile").hasRole("EMPLOYER")
                         .anyRequest().authenticated()
                 )
                 .userDetailsService(userService)

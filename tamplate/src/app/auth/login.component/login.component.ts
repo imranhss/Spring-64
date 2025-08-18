@@ -30,6 +30,30 @@ export class LoginComponent {
     });
   }
 
+  // onSubmit(): void {
+  //   if (this.loginForm.invalid) {
+  //     return;
+  //   }
+
+  //   const { email, password } = this.loginForm.value;
+
+  //   this.authService.login(email, password).subscribe({
+  //     next: (response) => {
+  //       this.successMessage = 'Login successful!';
+  //       this.errorMessage = null;
+  //       this.router.navigate(['/jobsekpro']); // Redirect to home or another route after login
+  //     },
+  //     error: (err) => {
+  //       this.errorMessage = 'Login failed. Please check your credentials.';
+  //       this.successMessage = null;
+  //     }
+  //   });
+  // }
+
+
+
+
+
   onSubmit(): void {
     if (this.loginForm.invalid) {
       return;
@@ -41,7 +65,18 @@ export class LoginComponent {
       next: (response) => {
         this.successMessage = 'Login successful!';
         this.errorMessage = null;
-        this.router.navigate(['/jobsekpro']); // Redirect to home or another route after login
+
+        const role = this.authService.getUserRole();
+
+        if (role === 'JOBSEEKER') {
+          this.router.navigate(['/jobsekpro']);
+        } else if (role === 'EMPLOYER') {
+          this.router.navigate(['/empPprofile']);
+        } else if (role === 'ADMIN') {
+          this.router.navigate(['/admin-dashboard']);
+        } else {
+          this.router.navigate(['/']); // fallback
+        }
       },
       error: (err) => {
         this.errorMessage = 'Login failed. Please check your credentials.';
@@ -49,6 +84,9 @@ export class LoginComponent {
       }
     });
   }
+
+
+
 
 
 }

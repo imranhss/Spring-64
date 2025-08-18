@@ -13,6 +13,8 @@ import { DistrictComponent } from './district/district.component/district.compon
 import { LocationSelectorComponent } from './location/location-selector.component/location-selector.component';
 import { AddressFormComponent } from './location/address-form.component/address-form.component';
 import { AddressListComponent } from './location/address-list.component/address-list.component';
+import { EmployerRegistration } from './employer/employer-registration/employer-registration';
+import { EmployerProfileComponent } from './employer/employer-profile.component/employer-profile.component';
 
 const routes: Routes = [
   {path: '' , component:Addstudent},
@@ -27,6 +29,8 @@ const routes: Routes = [
   {path: 'location' , component:LocationSelectorComponent},
   {path: 'address' , component:AddressFormComponent},
   {path: 'addlist' , component:AddressListComponent},
+  {path: 'empreg' , component:EmployerRegistration},
+  {path: 'empPprofile' , component:EmployerProfileComponent},
 ];
 
 @NgModule({
