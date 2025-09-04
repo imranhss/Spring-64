@@ -17,6 +17,7 @@ import { EmployerRegistration } from './employer/employer-registration/employer-
 import { EmployerProfileComponent } from './employer/employer-profile.component/employer-profile.component';
 
 const routes: Routes = [
+
   {path: '' , component:Addstudent},
   {path: 'allUser' , component:AlluserComponent},
   {path: 'addJobSeeker' , component:AddjobseekerComponent},
@@ -31,6 +32,8 @@ const routes: Routes = [
   {path: 'addlist' , component:AddressListComponent},
   {path: 'empreg' , component:EmployerRegistration},
   {path: 'empPprofile' , component:EmployerProfileComponent},
+  
+
 ];
 
 @NgModule({
